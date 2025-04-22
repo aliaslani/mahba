@@ -80,12 +80,7 @@ def edit_profile(request):
             return redirect('accounts:profile')
     else:
         # Prepopulate form with existing user data
-        form = EditProfileForm(initial={
-            'username': user.username,
-            'email': user.email,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'profile_picture': user.profile_picture,
-        })
+        form = EditProfileForm(instance=user)
+        
 
     return render(request, 'accounts/edit_profile.html', {'form': form})

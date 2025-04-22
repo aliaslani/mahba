@@ -14,8 +14,12 @@
           <header class="mb-4">
             <h2 class="fw-bold text-primary">{{ post.title }}</h2>
             <div class="d-flex justify-content-between align-items-center text-muted small mt-2">
-              <span class="badge bg-secondary">{{ post.created_at|g_to_j }}</span>
-              <span class="fw-semibold">{{ post.user.username }}</span>
+              <span class="badge bg-secondary">{{ post.created_at|fa_date }}</span>
+              {% if post.user.first_name %}
+                <span class="badge bg-secondary">{{ post.user.first_name }} {{ post.user.last_name }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ post.user.username }}</span>
+              {% endif %}
             </div>
           </header>
 
@@ -44,10 +48,10 @@
           <div class="d-flex flex-column gap-3">
             {% for comment in post.comments.all %}
               <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3 shadow-sm">
-                <img src="{{ comment.user.profile.profile_picture.url }}" class="rounded-circle border" width="45" height="45" alt="{{ comment.user.username }}">
+                <img src="{{ comment.user.profile_picture.url }}" class="rounded-circle border" width="45" height="45" alt="{{ comment.user.username }}">
                 <div>
                   <p class="mb-1 text-dark">{{ comment.content|linebreaksbr }}</p>
-                  <small class="text-muted d-block mt-1">{{ comment.created_at|g_to_j }} - {{ comment.user.username }}</small>
+                  <small class="text-muted d-block mt-1">{{ comment.created_at|fa_date }} - {% if comment.user.first_name %}{{ comment.user.first_name }} {{ comment.user.last_name }}{% else %}{{ comment.user.username }}{% endif %}</small>
                 </div>
               </div>
             {% endfor %}

@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-
+{% load jalali_format %}
 {% block title %}مهبا{% endblock %}
 
 {% block main %}
@@ -38,7 +38,7 @@
               <a href="{% url 'core:post_detail' id=recent.id %}" class="text-decoration-none text-accent fw-semibold d-block">
                 {{ recent.title }}
               </a>
-              <small class="text-muted d-block">{{ recent.created_at|date:"Y/m/d" }}</small>
+              <small class="text-muted d-block">{{ recent.created_at|fa_date }}</small>
             </li>
           {% empty %}
             <li class="text-muted">هیچ پست جدیدی وجود ندارد.</li>

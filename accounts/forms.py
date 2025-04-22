@@ -42,6 +42,15 @@ class LoginForm(Form):
 
 
 class EditProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.phone_number:
+            phone = self.instance.phone_number
+            for code, _ in COUNTRY_CODES:
+                if phone.startswith(code):
+                    self.fields['phone_country_code'].initial = code
+                    self.fields['phone_local_number'].initial = phone[len(code):]
+                    break
     phone_country_code = forms.ChoiceField(
         choices=COUNTRY_CODES,
                         label=('کشور'),
@@ -54,8 +63,10 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['phone_country_code', 'phone_local_number', 'gender', 'birthdate', 'profile_picture']
+        fields = [ 'first_name', 'last_name', 'phone_country_code', 'phone_local_number', 'gender', 'birthdate', 'profile_picture']
         widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'birthdate': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
             'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
