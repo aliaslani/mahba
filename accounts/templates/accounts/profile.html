@@ -5,148 +5,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پروفایل کاربر</title>
+    <meta name="description" content="پروفایل کاربری {{ profile.get_full_name }} در سامانه ادبی">
+    <title>پروفایل کاربر | {{ profile.get_full_name }}</title>
+    <!-- Bootstrap RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <style>
-        body {
-            background-color: #f0edf5;
-            font-family: "Vazirmatn", sans-serif;
-        }
-
-        .navbar {
-            background-color: #8e6d9f;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .navbar .nav-link,
-        .navbar .navbar-brand {
-            color: #fff !important;
-        }
-
-        .navbar .nav-link:hover {
-            color: #e0d1f0 !important;
-        }
-
-        .profile-card {
-            max-width: 500px;
-            margin: 100px auto;
-            background: #fff;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-
-        .profile-card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin-top: -70px;
-            background-color: #fff;
-        }
-
-        .profile-meta {
-            font-size: 0.95rem;
-            color: #888;
-        }
-
-        .btn-edit {
-            background-color: #b691d0;
-            border: none;
-        }
-
-        .btn-edit:hover {
-            background-color: #8654aa;
-        }
-
-        .info-box {
-            background: #f8f4fb;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .info-box h6 {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .info-box span {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-    </style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'core:home' %}">
-            <img src="{% static 'img/logo.jpg' %}" alt="لوگو" class="rounded-circle" width="40">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
+            <img src="{% static 'img/logo.jpg' %}" alt="لوگو" class="rounded-circle me-2" width="40" height="40">
+            <span class="d-none d-sm-inline">مهبا</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">خانه</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:profile' %}">پروفایل</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:new_post' %}">پست جدید</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">خروج</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}"><i class="bi bi-house-door"></i> خانه</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:profile' %}"><i class="bi bi-person-circle"></i> پروفایل</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:new_post' %}"><i class="bi bi-pencil-square"></i> نوشته جدید</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-right"></i> خروج</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">ثبت‌نام</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">ورود</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}"><i class="bi bi-person-plus"></i> ثبت‌نام</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}"><i class="bi bi-box-arrow-in-right"></i> ورود</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">درباره ما</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}"><i class="bi bi-info-circle"></i> درباره ما</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Profile Card -->
-<div class="container">
-    <div class="profile-card position-relative">
-        <div class="position-absolute top-0 start-50 translate-middle">
-            <img src="{{ profile.profile_picture.url }}" alt="عکس پروفایل">
+<!-- Profile Section -->
+<div class="container profile-container">
+    <div class="profile-card">
+        <!-- Header Quote -->
+        <div class="quote-block d-none d-md-block mb-4 text-center">
+            <small>«کلمات، پنجره‌هایی به دنیای درون ما هستند»</small>
         </div>
-        <div class="mt-5 pt-3">
-            <h4>{{ profile.first_name }} {{ profile.last_name }}</h4>
-            <p class="profile-meta">{{ profile.email }}</p>
-            <p class="profile-meta">شماره تلفن: {{ profile.phone_number }}</p>
-            <p class="profile-meta">جنسیت: 
-                {% if profile.gender == "M" %} مرد
-                {% elif profile.gender == "F" %} زن
-                {% else %} نامشخص
+        
+        <!-- Profile Picture -->
+        <div class="profile-picture-container">
+            <img src="{{ profile.profile_picture.url }}" alt="عکس پروفایل {{ profile.get_full_name }}" class="profile-picture">
+        </div>
+        
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <h3 class="profile-name chapter-title">{{ profile.first_name }} {{ profile.last_name }}</h3>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p class="profile-meta">
+                        <i class="bi bi-envelope bookmark-icon"></i> {{ profile.email }}
+                    </p>
+                    
+                    <p class="profile-meta">
+                        <i class="bi bi-telephone bookmark-icon"></i> {{ profile.phone_number }}
+                    </p>
+                    
+                    <p class="profile-meta">
+                        <i class="bi bi-person bookmark-icon"></i> 
+                        {% if profile.gender == "M" %}<span class="ink-highlight">مرد</span>
+                        {% elif profile.gender == "F" %}<span class="ink-highlight">زن</span>
+                        {% else %}<span class="ink-highlight">نامشخص</span>
+                        {% endif %}
+                    </p>
+                    
+                    <p class="profile-meta">
+                        <i class="bi bi-calendar bookmark-icon"></i> تاریخ تولد: <span class="ink-highlight">{{ profile.birthdate|fa_date|default:"ثبت نشده" }}</span>
+                    </p>
+                    
+                    <!-- Edit Profile Button -->
+                    <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-3">
+                        <i class="bi bi-pencil"></i> ویرایش پروفایل
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="row stats-container g-4 mt-3">
+                <div class="col-6">
+                    <div class="stat-box">
+                        <h6 class="stat-label"><i class="bi bi-journal-text bookmark-icon"></i> نوشته‌ها</h6>
+                        <span class="stat-value">{{ profile.posts.count|fa_digits }}</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-box">
+                        <h6 class="stat-label"><i class="bi bi-chat-quote bookmark-icon"></i> دیدگاه‌ها</h6>
+                        <span class="stat-value">{{ profile.comments.count|fa_digits }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity - Added element -->
+            <div class="mt-5">
+                <h5 class="chapter-title">فعالیت اخیر</h5>
+                {% if profile.posts.all %}
+                    <div class="recent-activity">
+                        <div class="quote-block">
+                            <p class="mb-0"><i class="bi bi-quote"></i> آخرین نوشته: 
+                                <a href="#" class="text-decoration-none">{{ profile.posts.first.title }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-muted"><i class="bi bi-info-circle"></i> هنوز نوشته‌ای منتشر نکرده‌اید.</p>
                 {% endif %}
-            </p>
-            <p class="profile-meta">تاریخ تولد: {{ profile.birthdate|fa_date }}</p>
-            <a href="{% url 'accounts:edit_profile' %}" class="btn btn-edit mt-3">ویرایش پروفایل</a>
-
-            <div class="row mt-4">
-                <div class="col-6">
-                    <div class="info-box">
-                        <h6>تعداد پست‌ها</h6>
-                        <span>{{ profile.posts.count|fa_digits }}</span>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="info-box">
-                        <h6>تعداد نظرات</h6>
-                        <span>{{ profile.comments.count|fa_digits }}</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- Footer - Added element -->
+<footer class="container mt-5 mb-3 text-center">
+    <p class="small text-muted">
+        <i class="bi bi-book bookmark-icon"></i> مهبا | تمامی حقوق محفوظ است &copy; ۱۴۰۴
+    </p>
+</footer>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

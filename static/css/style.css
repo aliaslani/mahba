@@ -1,96 +1,231 @@
+/* Font Imports */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+/* Persian Fonts */
 @font-face {
-  font-family: 'Vazir';
-  src: url('../fonts/Vazir.ttf');
+    font-family: 'Yekan';
+    src: url('../fonts/yekan.ttf');
 }
 
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/Vazir.ttf');
+}
+
+/* Reset & Base Styles */
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Vazir';
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Vazir', sans-serif;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #8e6d9f; /* رنگ بنفش */
-    color:#8e6d9f;
-    z-index: 1000; /* برای اینکه navbar بالای سایر اجزای صفحه قرار گیرد */
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1); /* سایه برای زیبایی */
+/* Literary Blog Color Palette */
+:root {
+    /* Core Colors */
+    --deep-ink: #1d3557;
+    --parchment: #f1f0ea;
+    --sepia: #704214;
+    
+    /* Accent Colors */
+    --burgundy: #8c1c13;
+    --sage: #606c38;
+    
+    /* Neutral Tones */
+    --charcoal: #333333;
+    --slate: #5f6c7b;
+    --pearl-gray: #e5e5e5;
+    --cream: #f8f5e6;
+    
+    /* Highlight Colors */
+    --gold-leaf: #d4a017;
+    --lavender: #967aa1;
+    
+    /* Functional Colors */
+    --success: #3a7d44;
+    --warning: #d68c45;
+    --error: #a62639;
+    --info: #457b9d;
+    
+    /* Design Variables */
+    --text-primary: var(--charcoal);
+    --text-secondary: var(--slate);
+    --text-accent: var(--burgundy);
+    --text-light: var(--parchment);
+    --text-muted: var(--slate);
+    
+    /* Component Variables */
+    --navbar-bg: var(--deep-ink);
+    --navbar-hover: var(--gold-leaf);
+    --body-bg: var(--parchment);
+    --card-bg: #ffffff;
+    --stat-bg: var(--cream);
+    --stat-hover: var(--pearl-gray);
+    
+    /* Button Variables */
+    --btn-primary: var(--burgundy);
+    --btn-hover: #6e150e;
+    --btn-text: var(--parchment);
+    
+    /* Effects */
+    --border-radius: 1rem;
+    --shadow-light: 0 4px 6px rgba(95, 108, 123, 0.1);
+    --shadow-medium: 0 8px 24px rgba(95, 108, 123, 0.15);
+    --shadow-hover: 0 12px 28px rgba(95, 108, 123, 0.2);
 }
 
-/* برای فضای اضافی در بالای صفحه (فضای navbar) */
 body {
-    margin-top: 150px; 
-    background-color: rgb(193, 191, 197);
-    /* background-image: url("{% static 'img/hich.jpg' %}");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed; */
+    background-color: var(--body-bg);
+    font-family: "Vazir", sans-serif;
+    padding-top: 70px;
+    color: var(--text-primary);
 }
 
-/* بهبود ظاهر navbar در موبایل */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    .navbar .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .navbar .nav-links.active {
-        display: flex;
-    }
-
-    .navbar .navbar-toggler {
-        display: block;
-    }
+/* Navbar Styles */
+.navbar {
+    background-color: var(--navbar-bg);
+    box-shadow: var(--shadow-light);
 }
 
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: var(--navbar-hover) !important;
+}
+
+/* Profile Card Styles */
+.profile-container {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.profile-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    border: 1px solid var(--pearl-gray);
+}
+
+.profile-picture-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--card-bg);
+    box-shadow: var(--shadow-light);
+    background-color: var(--card-bg);
+}
+
+.profile-content {
+    margin-top: 70px;
+}
+
+.profile-name {
+    font-weight: 700;
+    color: var(--text-accent);
+    margin-bottom: 0.5rem;
+}
+
+.profile-meta {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
 
 .btn-primary {
-  background-color: #800080;  /* یه بنفش کلاسیک */
-  border-color: #800080;
+    background-color: var(--btn-primary);
+    border: none;
+    color: var(--btn-text);
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #a64ca6;
-  border-color: #a64ca6;
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
 }
 
-.login-container {
-        background: linear-gradient(to bottom right, #ca8dbb, #a38dac);
-        padding: 2rem;
-    }
+/* Stats Boxes */
+.stats-container {
+    margin-top: 2rem;
+}
 
-    .bg-purple {
-        background-color: #6f42c1;
-    }
+.stat-box {
+    background: var(--stat-bg);
+    padding: 1.2rem;
+    border-radius: calc(var(--border-radius) / 2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
 
-    .text-purple {
-        color: #6f42c1;
-    }
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    background-color: var(--stat-hover);
+}
 
-    .border-purple {
-        border-color: #6f42c1 !important;
-    }
+.stat-label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
 
-    input.form-control, select.form-control, textarea.form-control {
-        width: 100%;
-        direction: rtl;
-    }
+.stat-value {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--deep-ink);
+}
 
-    label {
-        display: inline-block;
-        margin-bottom: 0.5rem;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 1.5rem;
     }
+    
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-content {
+        margin-top: 60px;
+    }
+}
 
-    button:focus, input:focus {
-        box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
-    }
+/* Additional Literary-themed Elements */
+.quote-block {
+    border-left: 3px solid var(--sepia);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    background-color: var(--cream);
+    font-style: italic;
+}
+
+.chapter-title {
+    color: var(--deep-ink);
+    font-weight: 700;
+    border-bottom: 2px solid var(--gold-leaf);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.bookmark-icon {
+    color: var(--burgundy);
+}
+
+.ink-highlight {
+    background: linear-gradient(transparent 70%, rgba(208, 160, 23, 0.2) 100%);
+}

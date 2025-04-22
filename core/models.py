@@ -30,7 +30,7 @@ class Post(models.Model):
     created_at=models.DateTimeField(verbose_name='تاریخ ساخت',auto_now_add=True)
     user=models.ForeignKey(to=CustomUser,on_delete=models.CASCADE,verbose_name='کاربر', related_name='posts')
     post_type=models.CharField(max_length=20,verbose_name='نوع پست', default='نظم', choices=POST_TYPE)
-    subject=models.CharField(max_length=20,choices=SUBJECT_CHOICES,null=True,default='love')
+    subject=models.CharField(max_length=20,choices=SUBJECT_CHOICES,null=True,default='love', verbose_name='موضوع')
     class Meta:
         verbose_name='پست'
         verbose_name_plural='پست'

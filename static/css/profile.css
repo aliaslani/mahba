@@ -1,5 +1,7 @@
+/* Font Imports */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
 
+/* Persian Fonts */
 @font-face {
     font-family: 'Yekan';
     src: url('../fonts/yekan.ttf');
@@ -10,92 +12,220 @@
     src: url('../fonts/Vazir.ttf');
 }
 
+/* Reset & Base Styles */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Vazir', sans-serif;
 }
 
-.container-fluid {
-    width: 100%;
+/* Literary Blog Color Palette */
+:root {
+    /* Core Colors */
+    --deep-ink: #1d3557;
+    --parchment: #f1f0ea;
+    --sepia: #704214;
+    
+    /* Accent Colors */
+    --burgundy: #8c1c13;
+    --sage: #606c38;
+    
+    /* Neutral Tones */
+    --charcoal: #333333;
+    --slate: #5f6c7b;
+    --pearl-gray: #e5e5e5;
+    --cream: #f8f5e6;
+    
+    /* Highlight Colors */
+    --gold-leaf: #d4a017;
+    --lavender: #967aa1;
+    
+    /* Functional Colors */
+    --success: #3a7d44;
+    --warning: #d68c45;
+    --error: #a62639;
+    --info: #457b9d;
+    
+    /* Design Variables */
+    --text-primary: var(--charcoal);
+    --text-secondary: var(--slate);
+    --text-accent: var(--burgundy);
+    --text-light: var(--parchment);
+    --text-muted: var(--slate);
+    
+    /* Component Variables */
+    --navbar-bg: var(--deep-ink);
+    --navbar-hover: var(--gold-leaf);
+    --body-bg: var(--parchment);
+    --card-bg: #ffffff;
+    --stat-bg: var(--cream);
+    --stat-hover: var(--pearl-gray);
+    
+    /* Button Variables */
+    --btn-primary: var(--burgundy);
+    --btn-hover: #6e150e;
+    --btn-text: var(--parchment);
+    
+    /* Effects */
+    --border-radius: 1rem;
+    --shadow-light: 0 4px 6px rgba(95, 108, 123, 0.1);
+    --shadow-medium: 0 8px 24px rgba(95, 108, 123, 0.15);
+    --shadow-hover: 0 12px 28px rgba(95, 108, 123, 0.2);
 }
-       body{
-        background-color:#def1f1;
-        background-image: url('../img/new.jpeg');
-        font-family: "Yekan", "Vazir", sans-serif;
-        font-weight: 300;
-        
-       }
 
-       .nav-link {
-        color: white;
-       }
+body {
+    background-color: var(--body-bg);
+    font-family: "Vazir", sans-serif;
+    padding-top: 70px;
+    color: var(--text-primary);
+}
 
-       .container{
-        height: 100vh;
-       }
+/* Navbar Styles */
+.navbar {
+    background-color: var(--navbar-bg);
+    box-shadow: var(--shadow-light);
+}
 
-       .card{
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
 
-        width: 380px;
-        border: none;
-        border-radius: 15px;
-        padding: 8px;
-        background-color: #fff;
-        position: relative;
-        height: 370px;
-       }
+.navbar .nav-link:hover {
+    color: var(--navbar-hover) !important;
+}
 
-       .upper{
+/* Profile Card Styles */
+.profile-container {
+    max-width: 600px;
+    margin: 30px auto;
+}
 
+.profile-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    border: 1px solid var(--pearl-gray);
+}
+
+.profile-picture-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--card-bg);
+    box-shadow: var(--shadow-light);
+    background-color: var(--card-bg);
+}
+
+.profile-content {
+    margin-top: 70px;
+}
+
+.profile-name {
+    font-weight: 700;
+    color: var(--text-accent);
+    margin-bottom: 0.5rem;
+}
+
+.profile-meta {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--btn-primary);
+    border: none;
+    color: var(--btn-text);
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+/* Stats Boxes */
+.stats-container {
+    margin-top: 2rem;
+}
+
+.stat-box {
+    background: var(--stat-bg);
+    padding: 1.2rem;
+    border-radius: calc(var(--border-radius) / 2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    background-color: var(--stat-hover);
+}
+
+.stat-label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--deep-ink);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 1.5rem;
+    }
+    
+    .profile-picture {
+        width: 100px;
         height: 100px;
+    }
+    
+    .profile-content {
+        margin-top: 60px;
+    }
+}
 
-       }
+/* Additional Literary-themed Elements */
+.quote-block {
+    border-left: 3px solid var(--sepia);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    background-color: var(--cream);
+    font-style: italic;
+}
 
-       .upper img{
+.chapter-title {
+    color: var(--deep-ink);
+    font-weight: 700;
+    border-bottom: 2px solid var(--gold-leaf);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
 
-        width: 100%;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+.bookmark-icon {
+    color: var(--burgundy);
+}
 
-       }
-
-       .user{
-        position: relative;
-       }
-
-       .profile img{
-
-        
-        height: 80px;
-        width: 80px;
-        margin-top:2px;
-
-       
-       }
-
-       .profile{
-
-        position: absolute;
-        top:-50px;
-        left: 38%;
-        height: 90px;
-        width: 90px;
-        border:3px solid #fff;
-
-        border-radius: 50%;
-
-       }
-
-       .follow{
-
-        border-radius: 15px;
-        padding-left: 20px;
-        padding-right: 20px;
-        height: 35px;
-       }
-
-       .stats span{
-
-        font-size: 29px;
-       }
+.ink-highlight {
+    background: linear-gradient(transparent 70%, rgba(208, 160, 23, 0.2) 100%);
+}
