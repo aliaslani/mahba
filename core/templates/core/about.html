@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}درباره ما{% endblock %}
+
+{% block main %}
+<style>
+    .about-container {
+        padding-top: 100px;
+        padding-bottom: 50px;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .profile-img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: -65px;
+        left: 20px;
+        background-color: white;
+    }
+
+    .section {
+        margin-bottom: 2.5rem;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+        color: #333;
+    }
+
+    .section p {
+        font-size: 1.1rem;
+        color: #555;
+        text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            top: -50px;
+            left: 10px;
+        }
+
+        .about-container {
+            padding: 80px 15px 30px 15px;
+        }
+    }
+</style>
+
+<div class="about-container">
+    <img src="{% static 'img/profile.jpg' %}" alt="تصویر پروفایل" class="profile-img">
+
+    <section class="section">
+        <h2>معرفی من</h2>
+        <p>سلام! من یک دانشجوی مهندسی کامپیوتر هستم و عاشق شعر و نوشته‌های فارسی. از کودکی با شعرهای بزرگان ادب فارسی مثل سعدی و مولانا بزرگ شدم و همیشه شعرهایشان را دنبال می‌کنم. با عشق به هنر و ادب فارسی، تصمیم گرفتم یک وب‌سایت طراحی کنم که در آن بتوانم اشعار و نوشته‌های خود را به اشتراک بگذارم و دیگران هم بتوانند آثار خود را به نمایش بگذارند.</p>
+    </section>
+
+    <section class="section">
+        <h2>هدف ما</h2>
+        <p>هدف این سایت ایجاد فضایی برای اشتراک‌گذاری اشعار و متون ادبی است. من می‌خواهم با اشتراک‌گذاری اشعار و نوشته‌های خود و دیگران، به گسترش و ترویج فرهنگ ادبیات فارسی کمک کنم. همچنین، هدف بلندمدت من ارتقاء و معرفی آثار ادبی فارسی در سطح جهانی است.</p>
+    </section>
+
+    <section class="section">
+        <h2>چطور در سایت مشارکت کنید؟</h2>
+        <p>برای مشارکت در سایت، کافی است وارد حساب کاربری خود شوید و آثار خود را ثبت کنید. دیگر کاربران می‌توانند آثار شما را بخوانند و بازخورد بنویسند.</p>
+    </section>
+
+    <section class="section">
+        <h2>تماس با من</h2>
+        <p>09138191352</p>
+        <p>email<a href=""></a></p>
+        <p>instagram<img src="{% static 'img/instagram.png' %}"> <a href="https://instagram.com/mahdieh80b" target="_blank">@mahdieh80b</a></p>
+        <p>telegram <a href="https://t.me/mahdieh80b" target="_blank">@mahdieh80b</a></p>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}ورود{% endblock %}
+
+{% block main %}
+<div class="login-container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg border-2 border-purple rounded-4 p-4 w-100" style="max-width: 400px;">
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <img src="{% static 'img/logo.jpg' %}" width="60" class="rounded-circle" alt="لوگو">
+            </div>
+            <h3 class="text-center text-purple mb-4">فرم ورود</h3>
+            <form action="{% url 'accounts:login' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field}}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary bg-purple border-0">ورود</button>
+                </div>
+            </form>
+            <div class="mt-4 text-center">
+                <p class="text-muted mb-0">حساب نداری؟
+                    <a href="{% url 'accounts:register' %}" class="text-purple fw-bold">ثبت‌نام</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

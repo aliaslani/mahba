@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block title %} ثبت نام {% endblock %}
+
+{% block main %}
+<div class="d-flex justify-content-center align-items-center min-vh-100      
+   background: linear-gradient(to bottom right, #ca8dbb, #a38dac);
+">
+    <div class="card shadow-lg border-2 border-purple rounded-4 p-4" style="width: 100%; max-width: 400px;">
+        <div class="card-body">
+            <h3 class="text-center text-purple mb-4">فرم ثبت‌نام</h3>
+            <form action="{% url 'accounts:register' %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="d-grid">
+                    <input type="submit" class="btn btn-primary bg-purple border-0" value="ثبت نام">
+                </div>
+            </form>
+            <div class="mt-3 text-center">
+                <a href="{% url 'accounts:login' %}" class="text-purple">قبلاً ثبت‌نام کردی؟ ورود</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-purple {
+        background-color: #6f42c1;
+    }
+
+    .text-purple {
+        color: #6f42c1;
+    }
+
+    .border-purple {
+        border-color: #6f42c1 !important;
+    }
+
+    input, select, textarea {
+        width: 100%;
+    }
+</style>
+{% endblock %}

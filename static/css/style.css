@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'Vazir';
+  src: url('../fonts/Vazir.ttf');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Vazir';
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #8e6d9f; /* رنگ بنفش */
+    color:#8e6d9f;
+    z-index: 1000; /* برای اینکه navbar بالای سایر اجزای صفحه قرار گیرد */
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1); /* سایه برای زیبایی */
+}
+
+/* برای فضای اضافی در بالای صفحه (فضای navbar) */
+body {
+    margin-top: 150px; 
+    background-color: rgb(193, 191, 197);
+    /* background-image: url("{% static 'img/hich.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
+}
+
+/* بهبود ظاهر navbar در موبایل */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar .nav-links.active {
+        display: flex;
+    }
+
+    .navbar .navbar-toggler {
+        display: block;
+    }
+}
+
+
+.btn-primary {
+  background-color: #800080;  /* یه بنفش کلاسیک */
+  border-color: #800080;
+}
+
+.btn-primary:hover {
+  background-color: #a64ca6;
+  border-color: #a64ca6;
+}
+
+.login-container {
+        background: linear-gradient(to bottom right, #ca8dbb, #a38dac);
+        padding: 2rem;
+    }
+
+    .bg-purple {
+        background-color: #6f42c1;
+    }
+
+    .text-purple {
+        color: #6f42c1;
+    }
+
+    .border-purple {
+        border-color: #6f42c1 !important;
+    }
+
+    input.form-control, select.form-control, textarea.form-control {
+        width: 100%;
+        direction: rtl;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+
+    button:focus, input:focus {
+        box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+    }

@@ -1,0 +1,126 @@
+{% load static %}
+{% load jalali_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% block title %} {% endblock %}
+  </title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+    integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body dir="rtl">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">☰</span> <!-- fallback icon -->
+ 
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'core:home' %}">
+                  <img src="{% static 'img/logo.jpg' %}" alt="خانه" style="width: 50px;">
+                </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'core:new_post' %}">پست جدید</a>
+            </li>
+
+
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'accounts:register' %}">ثبت نام</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'accounts:login' %}">ورود</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'core:about' %}">درباره ما</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="nav-link border-0 dropdown-toggle bg-transparent text-white" type="button" data-bs-toggle="dropdown">
+ 
+                  گزارش گیری
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'core:report_plot' %}">نمودارها</a>
+                  <a class="dropdown-item" href="{% url 'core:report_csv' %}"> خروجی csv</a>
+                  <a class="dropdown-item" href="{% url 'core:report_pdf' %}">خروجی pdf </a>
+                </div>
+              </div>
+            </li>
+            {% endif%}
+          </ul>
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <div class="dropdown">
+                
+                  {% if user.is_authenticated %}
+                  <button class="nav-link border-0 dropdown-toggle bg-transparent text-white" type="link" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  {{ user.username }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'accounts:profile' %}">نمایه کاربری</a>
+                  {% endif%}
+
+                  <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a>
+
+
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    {% block main %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <div class="alert {% if message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %}">{{
+          message }}</div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    {% endblock %}
+    <!-- <footer>
+      <footer class="footer  text-light text-center text-light py-4">
+        <div class="container">
+            <p class="mb-0">تمامی حقوق برای مهبا محفوظ است </p>
+            <p class="small">"درست مانند کلمات، هیچ‌گاه از خاطره‌ها نمی‌رود"</p>
+        </div>
+    </footer>
+    </footer> -->
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block title %} مهبا {% endblock %}
+
+
+{% block main %}
+
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <ul class="list-group">
+            {% for post in posts %}
+            <li class="list-group-item"><h5 class=" mb-3"><a class="link-primary text-decoration-none" href="{% url 'core:post_detail' id=post.id %}">{{post.title}}</a></h5> 
+
+            <p>{{ post.content|truncatechars:80 }} <a class="text-decoration-none" href="{% url 'core:post_detail' id=post.id %}"> ... </a></p>
+        </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

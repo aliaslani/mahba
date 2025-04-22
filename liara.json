@@ -1,0 +1,17 @@
+{
+    "app": "mahba",
+    "port": 80,
+    "build": {
+      "location": "iran"
+    },
+    "disks": [
+      {
+        "name": "database",
+        "mountTo": "database"
+      },
+      {
+        "name": "media",
+        "mountTo": "media"
+      }
+    ]
+  }

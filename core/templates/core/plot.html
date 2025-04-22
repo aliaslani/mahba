@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% block title %}نمودار پست‌ها{% endblock %}
+
+{% block main %}
+<div class="container mt-5">
+    <h2>نمودار توزیع نوع پست‌ها</h2>
+    <div class="border p-3 rounded shadow">
+        {{ plot|safe }}
+    </div>
+</div>
+{% endblock %}

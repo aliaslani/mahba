@@ -1,0 +1,152 @@
+{% load static %}
+{% load jalali_format %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل کاربر</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <style>
+        body {
+            background-color: #f0edf5;
+            font-family: "Vazirmatn", sans-serif;
+        }
+
+        .navbar {
+            background-color: #8e6d9f;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar .nav-link,
+        .navbar .navbar-brand {
+            color: #fff !important;
+        }
+
+        .navbar .nav-link:hover {
+            color: #e0d1f0 !important;
+        }
+
+        .profile-card {
+            max-width: 500px;
+            margin: 100px auto;
+            background: #fff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin-top: -70px;
+            background-color: #fff;
+        }
+
+        .profile-meta {
+            font-size: 0.95rem;
+            color: #888;
+        }
+
+        .btn-edit {
+            background-color: #b691d0;
+            border: none;
+        }
+
+        .btn-edit:hover {
+            background-color: #8654aa;
+        }
+
+        .info-box {
+            background: #f8f4fb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .info-box h6 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .info-box span {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'core:home' %}">
+            <img src="{% static 'img/logo.jpg' %}" alt="لوگو" class="rounded-circle" width="40">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">خانه</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'accounts:profile' %}">پروفایل</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:new_post' %}">پست جدید</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">خروج</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">ثبت‌نام</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">ورود</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">درباره ما</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Profile Card -->
+<div class="container">
+    <div class="profile-card position-relative">
+        <div class="position-absolute top-0 start-50 translate-middle">
+            <img src="{{ profile.profile_picture.url }}" alt="عکس پروفایل">
+        </div>
+        <div class="mt-5 pt-3">
+            <h4>{{ profile.first_name }} {{ profile.last_name }}</h4>
+            <p class="profile-meta">{{ profile.email }}</p>
+            <p class="profile-meta">شماره تلفن: {{ profile.phone_number }}</p>
+            <p class="profile-meta">جنسیت: 
+                {% if profile.gender == "M" %} مرد
+                {% elif profile.gender == "F" %} زن
+                {% else %} نامشخص
+                {% endif %}
+            </p>
+            <p class="profile-meta">تاریخ تولد: {{ profile.birthdate|fa_date }}</p>
+            <a href="{% url 'accounts:edit_profile' %}" class="btn btn-edit mt-3">ویرایش پروفایل</a>
+
+            <div class="row mt-4">
+                <div class="col-6">
+                    <div class="info-box">
+                        <h6>تعداد پست‌ها</h6>
+                        <span>{{ profile.posts.count|fa_digits }}</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="info-box">
+                        <h6>تعداد نظرات</h6>
+                        <span>{{ profile.comments.count|fa_digits }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
