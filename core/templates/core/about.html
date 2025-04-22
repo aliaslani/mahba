@@ -4,46 +4,49 @@
 {% block title %}درباره ما{% endblock %}
 
 {% block main %}
-<div class="container my-5">
+<div class="container profile-container mt-4">
 
-  <!-- Profile Section -->
-  <div class="text-center mb-5">
-    <img src="{% static 'img/profile.jpg' %}" alt="تصویر پروفایل" class="profile-img rounded-circle shadow" style="max-width: 200px;">
+  <!-- Profile Card -->
+  <div class="profile-card text-center">
+    <div class="profile-picture-container">
+      <img src="{% static 'img/profile.webp' %}" alt="تصویر پروفایل" class="profile-picture">
+    </div>
+    <div class="profile-content">
+      <h2 class="profile-name">مهدیه بختیاری</h2>
+      <p class="profile-meta">دانشجوی مهندسی کامپیوتر | علاقه‌مند به شعر و ادبیات فارسی</p>
+    </div>
   </div>
 
-  <!-- Introduction -->
-  <section class="section mb-5">
-    <h2 class="mb-3">معرفی من</h2>
+  <!-- Sections -->
+  <section class="section mt-5">
+    <h3 class="chapter-title">معرفی من</h3>
     <p>
       سلام! من یک دانشجوی مهندسی کامپیوتر هستم و عاشق شعر و نوشته‌های فارسی. از کودکی با شعرهای بزرگان ادب فارسی مثل سعدی و مولانا بزرگ شدم و همیشه شعرهایشان را دنبال می‌کنم. با عشق به هنر و ادب فارسی، تصمیم گرفتم یک وب‌سایت طراحی کنم که در آن بتوانم اشعار و نوشته‌های خود را به اشتراک بگذارم و دیگران هم بتوانند آثار خود را به نمایش بگذارند.
     </p>
   </section>
 
-  <!-- Our Goal -->
-  <section class="section mb-5">
-    <h2 class="mb-3">هدف ما</h2>
+  <section class="section mt-5">
+    <h3 class="chapter-title">هدف ما</h3>
     <p>
       هدف این سایت ایجاد فضایی برای اشتراک‌گذاری اشعار و متون ادبی است. من می‌خواهم با اشتراک‌گذاری اشعار و نوشته‌های خود و دیگران، به گسترش و ترویج فرهنگ ادبیات فارسی کمک کنم. همچنین، هدف بلندمدت من ارتقاء و معرفی آثار ادبی فارسی در سطح جهانی است.
     </p>
   </section>
 
-  <!-- Participation -->
-  <section class="section mb-5">
-    <h2 class="mb-3">چطور در سایت مشارکت کنید؟</h2>
+  <section class="section mt-5">
+    <h3 class="chapter-title">چطور در سایت مشارکت کنید؟</h3>
     <p>
       برای مشارکت در سایت، کافی است وارد حساب کاربری خود شوید و آثار خود را ثبت کنید. دیگر کاربران می‌توانند آثار شما را بخوانند و بازخورد بنویسند.
     </p>
   </section>
 
-  <!-- Contact -->
-  <section class="section">
-    <h2 class="mb-3">تماس با من</h2>
+  <section class="section mt-5 mb-5">
+    <h3 class="chapter-title">تماس با من</h3>
     <ul class="list-unstyled">
-      <li><strong>تلفن:</strong> 09138191352</li>
-      <li><strong>ایمیل:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
-      <li>
-        <strong>اینستاگرام:</strong>
-        <img src="{% static 'img/instagram.png' %}" alt="Instagram" style="width: 24px; vertical-align: middle;">
+      <li class="mb-2"><strong>تلفن:</strong> 09138191352</li>
+      <li class="mb-2"><strong>ایمیل:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+      <li class="mb-2 d-flex align-items-center">
+        <strong class="me-2">اینستاگرام:</strong>
+        <img src="{% static 'img/instagram.png' %}" alt="Instagram" style="width: 24px; margin-left: 8px;">
         <a href="https://instagram.com/mahdieh80b" target="_blank">@mahdieh80b</a>
       </li>
       <li><strong>تلگرام:</strong> <a href="https://t.me/mahdieh80b" target="_blank">@mahdieh80b</a></li>

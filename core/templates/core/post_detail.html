@@ -1,79 +1,80 @@
 {% extends 'core/base.html' %}
 {% load jalali_format %}
 
-{% block title %} {{ post.title }} {% endblock %}
-<style>
-  /* تنظیم استایل‌ها برای موبایل */
-@media (max-width: 767px) {
-  .comment-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+{% block title %}{{ post.title }}{% endblock %}
 
-  .comment-item img {
-    margin-bottom: 10px;
-  }
-
-  .comment-content {
-    width: 100%;
-  }
-
-  .card-body {
-    padding: 1.5rem;
-  }
-}
-</style>
 {% block main %}
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12 col-md-8 offset-md-2">
-      <div class="card bg-light justify-content-center">
-        <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
-          {% if post.post_type == 'نظم' %}
-            <p class="card-text text-center">{{ post.content|linebreaksbr }}</p>
-          {% else %}
-            <p class="card-text">{{ post.content|linebreaksbr }}</p>
-          {% endif %}
-          <small>{{ post.created_at|g_to_j }}</small>
-          <small>{{ post.user.username }}</small>
-          <div class="buttons mt-3">
-            {% if user == post.user %}
-              <a class="btn btn-danger" href="{% url 'core:delete_post' id=post.id %}">حذف</a>
-            {% endif %}
-            {% if user == post.user %}
-              <a class="btn btn-secondary" href="{% url 'core:edit_post' id=post.id %}">ویرایش</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-      {% if post.comments.all %}
-        <div class="comments-section mt-4">
-          <h5>نظرات:</h5>
+      <!-- Post Card -->
+      <article class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="card-body p-5 bg-white">
+          <header class="mb-4">
+            <h2 class="fw-bold text-primary">{{ post.title }}</h2>
+            <div class="d-flex justify-content-between align-items-center text-muted small mt-2">
+              <span class="badge bg-secondary">{{ post.created_at|g_to_j }}</span>
+              <span class="fw-semibold">{{ post.user.username }}</span>
+            </div>
+          </header>
+
+          <section class="post-content fs-6 text-justify" style="line-height: 2;">
+            {% if post.post_type == 'نظم' %}
+              <p class="text-center lh-lg">{{ post.content|linebreaksbr }}</p>
+            {% else %}
+              {{ post.content|linebreaksbr }}
+            {% endif %}
+          </section>
+
+          {% if user == post.user %}
+            <div class="mt-4 d-flex gap-2">
+              <a href="{% url 'core:edit_post' id=post.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">✏️ ویرایش</a>
+              <a href="{% url 'core:delete_post' id=post.id %}" class="btn btn-outline-danger btn-sm rounded-pill px-3">🗑 حذف</a>
+            </div>
+          {% endif %}
+        </div>
+      </article>
+
+      <!-- Comments Section -->
+      <section class="mt-5">
+        <h5 class="mb-3 border-bottom pb-2 text-dark fw-semibold">💬 نظرات</h5>
+        
+        {% if post.comments.all %}
           <div class="d-flex flex-column gap-3">
             {% for comment in post.comments.all %}
-              <div class="comment-item d-flex align-items-center p-2 border rounded mb-2">
-                <img src="{{ comment.user.profile.profile_picture.url }}" class="rounded-circle" width="40" height="40" alt="{{ comment.user.username }}">
-                <div class="comment-content ms-2">
-                  <p class="m-0">{{ comment.content|linebreaksbr }}</p>
-                  <small class="text-muted">{{ comment.created_at|g_to_j }} - {{ comment.user.username }}</small>
+              <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3 shadow-sm">
+                <img src="{{ comment.user.profile.profile_picture.url }}" class="rounded-circle border" width="45" height="45" alt="{{ comment.user.username }}">
+                <div>
+                  <p class="mb-1 text-dark">{{ comment.content|linebreaksbr }}</p>
+                  <small class="text-muted d-block mt-1">{{ comment.created_at|g_to_j }} - {{ comment.user.username }}</small>
                 </div>
               </div>
             {% endfor %}
           </div>
-        </div>
-      {% else %}
-        <p>برای این پست نظری ثبت نشده است.</p>
+        {% else %}
+          <p class="text-muted fst-italic">هیچ نظری برای این پست ثبت نشده است.</p>
+        {% endif %}
+      </section>
+
+      <!-- Comment Form -->
+      {% if user.is_authenticated %}
+        <section class="mt-5">
+          <h6 class="mb-3 text-dark fw-semibold">✍️ ارسال نظر جدید</h6>
+          <form action="{% url 'core:post_detail' post.id %}" method="post" class="bg-white p-4 rounded-3 shadow-sm">
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form.content.label_tag }}
+              {{ form.content }}
+              {% if form.content.errors %}
+                <small class="text-danger">{{ form.content.errors.0 }}</small>
+              {% endif %}
+            </div>
+            <button type="submit" class="btn btn-success btn-sm rounded-pill px-4">ارسال</button>
+          </form>
+        </section>
       {% endif %}
 
-      {% if user.is_authenticated %}
-        <form action="{% url 'core:post_detail' post.id %}" method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <input class="btn btn-secondary" type="submit" value="ارسال نظر">
-        </form>
-      {% endif %}
     </div>
   </div>
 </div>

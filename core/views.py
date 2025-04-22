@@ -63,7 +63,8 @@ def export_posts_pdf(request):
 
 def home(request):
     posts=Post.objects.order_by('created_at')
-    return render(request,'core/index.html' , context={'posts':posts})
+    latest_posts = posts[:3]
+    return render(request,'core/index.html' , context={'posts':posts, 'latest_posts':latest_posts})
 
 def post_detail(request,id):
     post=get_object_or_404(Post,id=id)

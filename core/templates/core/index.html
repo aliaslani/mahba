@@ -1,24 +1,51 @@
 {% extends 'core/base.html' %}
 
-{% block title %} مهبا {% endblock %}
-
+{% block title %}مهبا{% endblock %}
 
 {% block main %}
-
-
-<div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-        <ul class="list-group">
-            {% for post in posts %}
-            <li class="list-group-item"><h5 class=" mb-3"><a class="link-primary text-decoration-none" href="{% url 'core:post_detail' id=post.id %}">{{post.title}}</a></h5> 
-
-            <p>{{ post.content|truncatechars:80 }} <a class="text-decoration-none" href="{% url 'core:post_detail' id=post.id %}"> ... </a></p>
-        </li>
-
-            {% endfor %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <!-- Main Blog Posts Section -->
+    <div class="col-lg-8 col-md-10 mb-4">
+      <section aria-label="پست‌ها">
+        <ul class="list-group shadow-sm">
+          {% for post in posts %}
+            <li class="list-group-item mb-4 p-4 rounded-3 profile-card">
+              <h5 class="profile-name">
+                <a href="{% url 'core:post_detail' id=post.id %}" class="text-decoration-none">
+                  {{ post.title }}
+                </a>
+              </h5>
+              <p class="profile-meta">
+                {{ post.content|truncatechars:100 }}
+                <a href="{% url 'core:post_detail' id=post.id %}" class="text-decoration-none text-accent">... ادامه</a>
+              </p>
+            </li>
+          {% empty %}
+            <li class="list-group-item text-center text-muted">هیچ پستی برای نمایش وجود ندارد.</li>
+          {% endfor %}
         </ul>
+      </section>
     </div>
-</div>
 
+    <!-- Sidebar: Latest Posts -->
+    <div class="col-lg-4 d-none d-lg-block">
+      <aside class="profile-card">
+        <h5 class="chapter-title">آخرین نوشته‌ها</h5>
+        <ul class="list-unstyled">
+          {% for recent in latest_posts %}
+            <li class="mb-3">
+              <a href="{% url 'core:post_detail' id=recent.id %}" class="text-decoration-none text-accent fw-semibold d-block">
+                {{ recent.title }}
+              </a>
+              <small class="text-muted d-block">{{ recent.created_at|date:"Y/m/d" }}</small>
+            </li>
+          {% empty %}
+            <li class="text-muted">هیچ پست جدیدی وجود ندارد.</li>
+          {% endfor %}
+        </ul>
+      </aside>
+    </div>
+  </div>
+</div>
 {% endblock %}

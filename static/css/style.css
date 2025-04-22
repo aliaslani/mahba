@@ -229,3 +229,27 @@ body {
 .ink-highlight {
     background: linear-gradient(transparent 70%, rgba(208, 160, 23, 0.2) 100%);
 }
+
+/* Stick the sidebar */
+@media (min-width: 992px) {
+    aside.profile-card {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+
+.post-content {
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.card-title {
+  color: #1e3a8a;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-danger:hover {
+  color: white !important;
+}
