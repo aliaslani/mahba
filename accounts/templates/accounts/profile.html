@@ -74,7 +74,7 @@
                     <div class="recent-activity">
                         <div class="quote-block">
                             <p class="mb-0"><i class="bi bi-quote"></i> آخرین نوشته: 
-                                <a href="#" class="text-decoration-none">{{ profile.posts.first.title }}</a>
+                                <a href="{% url 'core:post_detail' id=profile.posts.first.id %}" class="text-decoration-none">{{ profile.posts.first.title }}</a>
                             </p>
                         </div>
                     </div>

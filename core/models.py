@@ -3,27 +3,6 @@ from core.constans import GENDER_CHOICES,SUBJECT_CHOICES, POST_TYPE
 from accounts.models import CustomUser
 
 
-
-# Create your models here.
-# class User(models.Model):
-#     username=models.CharField(max_length=50,verbose_name='نام کاربری')
-#     password=models.CharField(max_length=30 ,verbose_name='کلمه عبور')
-#     first_name=models.CharField(max_length=40,verbose_name='نام')
-#     last_name=models.CharField(max_length=40 ,verbose_name='نام خانوادگی')
-#     birth_date=models.DateField(verbose_name='تاریخ تولد',null=True)
-#     gender=models.CharField(max_length=10,choices=GENDER_CHOICES) 
-#     phone=models.CharField(max_length=11,verbose_name='شماره تلفن',null=True)
-#     degree=models.CharField(max_length=20 ,verbose_name='تحصیلات',null=True)
-#     bio=models.TextField(verbose_name='تحصیلات',null=True)
-#     class Meta:
-#         verbose_name='کاربر'
-#         verbose_name_plural='کاربر'
-      
-#     def __str__(self):
-#         return f'{self.username}-{self.first_name}'  
-    
-
-
 class Post(models.Model):
     title=models.CharField(max_length=40,verbose_name='عنوان')
     content=models.TextField(verbose_name='محتوا')

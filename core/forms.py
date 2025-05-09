@@ -7,13 +7,6 @@ from django import forms
 from jalali_date.fields import JalaliDateField, SplitJalaliDateTimeField
 from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
 
-# class NewPostForm(Form):
-#     title = forms.CharField(label='عنوان', validators=[validators.MinLengthValidator(3, 'این فیلد نمیتواند کمتر از سه کاراکتر باشد')], widget=forms.TextInput(attrs={'class':'form-control border border-1 border-success'}))
-#     content = forms.CharField(label='محتوا', widget=forms.Textarea(attrs={'class':'form-control'}))
-#     username = forms.CharField(label='نام کاربری', widget=forms.TextInput(attrs={'class':'form-control'}))
-#     post_type = forms.CharField(label='نوع', widget=forms.TextInput(attrs={'class':'form-control'}))
-#     subject = forms.CharField(label='موضوع', widget=forms.TextInput(attrs={'class':'form-control'}))
-
 
 class NewPostForm(ModelForm):
     class Meta:
@@ -35,15 +28,6 @@ class NewPostForm(ModelForm):
             raise ValidationError('این فیلد نمی تواند کمتر از سه کاراکتر داشته باشد')
         return t
     
-    # def clean(self):
-    #     data = self.cleaned_data
-    #     title = data.get('title')
-    #     if len(title) < 3:
-    #         raise ValidationError('این فیلد نمی تواند کمتر از سه کاراکتر داشته باشد')
-    #     content = data.get('content')
-    #     if title == content:
-    #         raise ValidationError('عنوان و محتوا نمی تواند شبیه به هم باشد')
-    #     return self.cleaned_data
 
     def clean_content(self):
         data = self.cleaned_data

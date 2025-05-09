@@ -4,7 +4,6 @@ from core.models import Post
 from core.forms import NewPostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
-from django.utils.translation import gettext as _
 import io
 # Create your views here.
 import jdatetime
@@ -42,11 +41,10 @@ def post_type_plot(request):
 def export_posts_pdf(request):
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer)
-
     posts = Post.objects.order_by('-created_at')[:20]
     y = 800
     p.setFont("Helvetica", 12)
-    p.drawString(100, 820, _("Post Report (Latest 20 Posts)"))
+    p.drawString(100, 820, ("Post Report (Latest 20 Posts)"))
 
     for post in posts:
         p.drawString(100, y, f"{post.title} - {post.user.username} - {jdatetime.datetime.fromgregorian(datetime=post.created_at).strftime('%Y/%m/%d')}")
@@ -78,7 +76,7 @@ def post_detail(request,id):
             new_comment.save()
             messages.success(request, 'نظر شما با موفقیت ثبت شد')
         else:
-            return render(request,'core/post_detail.html',context={'post':post,  'form':form})
+            return redirect('core:post_detail', id=post.id)
     
     form = CommentForm()
     return render(request,'core/post_detail.html',context={'post':post,  'form':form})
@@ -89,14 +87,6 @@ def post_detail(request,id):
 def new_post(request):
     form = NewPostForm()
     if request.method =='POST':
-        # print(request.POST)
-        # title = request.POST.get('title')
-        # content=request.POST.get('content')
-        # username=request.POST.get('username')
-        # user=User.objects.filter(username=username).first()
-        # post_type=request.POST.get('type')
-        # subject=request.POST.get('subject')
-        # new_post=Post.objects.create(title=title,content=content,user=user,post_type=post_type,subject=subject)
         form =  NewPostForm(request.POST)
         if form.is_valid():
             clean_data =  form.cleaned_data
@@ -109,13 +99,13 @@ def new_post(request):
     return render(request,'core/new_post.html', {'form':form})
 
 
-
+@login_required
 def edit_post(request, id):
     post = get_object_or_404(Post, pk=id)
     if request.user != post.user:
         return HttpResponse('شما اجازه ویرایش این پست را ندارید')
     if request.method == 'POST':
-        form = NewPostForm(instance=post, initial={'title':post.title, 'content':post.content, 'user':post.user, 'post_type':post.post_type, 'subject':post.subject}, data=request.POST)
+        form = NewPostForm(instance=post, data=request.POST)
         
         if form.is_valid():
             
@@ -129,7 +119,7 @@ def edit_post(request, id):
     form = NewPostForm(initial={'title':post.title, 'content':post.content, 'user':post.user, 'post_type':post.post_type, 'subject':post.subject})
     return render(request, 'core/edit_post.html', {'post':post, 'form':form})
 
-
+@login_required
 def delete_post(request, id):
     post = get_object_or_404(Post, pk=id)
     post.delete()
